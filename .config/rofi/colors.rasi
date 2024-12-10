@@ -1,0 +1,12 @@
+
+* {
+    bg:  #15141999;
+    bg2:  #15141955;
+    fg:  #cdd6f4;
+    fg2:  #9399b2;
+    primary:  #a48590;
+    primary2:  #a4859011;
+    secondary:  #6a989b;
+    secondary2:  #6a989b11;
+    urgent:  #f38ba8;
+}

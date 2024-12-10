@@ -1,0 +1,10 @@
+/* colors */
+* {
+    base: #1e1e2e55;
+    text: #cdd6f4;
+    crust: #11111b99;
+    mauve: #cba6f7;
+    pink: #f5c2e7;
+    flamingo: #f2cdcd;
+    blue: #89b4fa;
+}
