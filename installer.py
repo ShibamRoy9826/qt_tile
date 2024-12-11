@@ -54,7 +54,6 @@ def installPackage(pkgName,url=""):
                     run(["git","clone",url],check=True)
                 else:
                     run(["git","clone",url],check=True)
-                # run(["cd",pkgName])
                 chdir(pkgName)
                 print("- Installing...")
                 if not isinstalled(pkgName):
@@ -199,7 +198,7 @@ def preInstall(mainpkgs,depends,mainpkgsAur,dependsAur):
 
     if "colloid-catppuccin-gtk-theme-git" in mainpkgsAur:
         mainpkgsAur.remove("colloid-catppuccin-gtk-theme-git")
-        # mainpkgsAur.append("colloid-gtk-theme-git")
+        mainpkgsAur.append("colloid-gtk-theme-git")
 
     # Installing all packages
 
@@ -207,27 +206,26 @@ def preInstall(mainpkgs,depends,mainpkgsAur,dependsAur):
         installPacman(i)
 
 
-    # setupFont()
+    setupFont()
 
     if "picom-pijulius" in mainpkgs:
         mainpkgs.remove("picom-pijulius")
         installPicom()
 
-    # for i in mainpkgs:
-    #     installPacman(i)
-
-
+    for i in mainpkgs:
+        installPacman(i)
     for j in dependsAur:
         installPackage(j)
-    # for j in mainpkgsAur:
-    #     installPackage(j)
+    for j in mainpkgsAur:
+        installPackage(j)
 
 
 def setupUdev():
     run(["sudo","cp",".config/90-backlight.rules","/etc/udev/rules.d/"])
 
 def postInstall():
-    pass
+    print("*"*40)
+    print("Installation completed!!!! Please reboot to see full effects")
 
 def runInstall(toSetup):
     try:
@@ -347,6 +345,7 @@ if browser:
     browsername="zen-browser"
 else:
     browsername=input("Okay.. So is there any other browser that you would like to install? (Type exact name please, I will look into AUR):")
+
 ############################################
 
 flManager=ask("Do you want to install a file-manager?(thunar)")
@@ -370,6 +369,7 @@ if extra_scripts:
     toSetup.append("scripts")
 
 #### Adding all other packages
+
 toBeInstalledAur.append(termname)
 toSetup.append(termname)
 toBeInstalledAur.append(browsername)
@@ -433,7 +433,7 @@ confirm=ask("So... Are you alright with installation of all these packages?")
 ############### Starting/Aborting installation
 if confirm:
     print("OkAy! StArTiNG tHe InStALlAtiOn rIgHt nOw!")
-    # preInstall(toBeInstalled,dependencies,toBeInstalledAur,dependenciesAur)
+    preInstall(toBeInstalled,dependencies,toBeInstalledAur,dependenciesAur)
     runInstall(toSetup)
     postInstall()
 else:
