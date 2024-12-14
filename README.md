@@ -1,12 +1,4 @@
-```
-╔═══╗ ╔╗     ╔════╗  ╔╗     
-║╔═╗║╔╝╚╗    ║╔╗╔╗║  ║║     
-║║ ║║╚╗╔╝    ╚╝║║╚╝╔╗║║ ╔══╗
-║║ ║║ ║║       ║║  ╠╣║║ ║╔╗║
-║╚═╝║ ║╚╗     ╔╝╚╗ ║║║╚╗║║═╣
-╚══╗║ ╚═╝     ╚══╝ ╚╝╚═╝╚══╝
-   ╚╝                       
-```
+![logo](https://github.com/ShibamRoy9826/qt_tile/blob/main/assets/Qt_Tile_Icon_Light.png?raw=true)
 
 A Simple and easy to setup qtile rice, which comes with an installer for Arch Users:)
 Its made so that people can configure qtile much more easily and in a more organised manner!
