@@ -394,6 +394,7 @@ if dunst:
     toSetup.append("dunst") 
 if mpd:
     toBeInstalled.append("mpd")
+    toBeInstalled.append("mpc")
     toSetup.append("mpd")
 if ncmpcpp:
     toSetup.append("ncmpcpp")

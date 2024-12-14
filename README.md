@@ -182,8 +182,8 @@ Custom Layouts(Scratchpads) are there in `custom/custom_layouts.py` which by def
 
 </div>
 
-
-
+## More Customization 🛠️
+TO BE UPDATED
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
@@ -191,7 +191,7 @@ Custom Layouts(Scratchpads) are there in `custom/custom_layouts.py` which by def
 
 ### 1) What things does the installer install?
 
-It mostly installs just what you want it to install. Ofcourse, it also install the dependencies for your choices, and there are some mandatory packages for this rice to work, here's the list:
+It mostly installs just what you want it to install(It asks for many things). Ofcourse, it also install the dependencies for your choices, and there are some mandatory packages for this rice to work, here's the list:
 - qtile
 - wget
 - git
