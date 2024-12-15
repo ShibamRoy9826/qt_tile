@@ -17,6 +17,7 @@ Its made so that people can configure qtile much more easily and in a more organ
 
 > [!WARNING]
 > The installer still faced limited testing, it mostly works, but still it may not install everything properly!
+> Please raise an issue if you face any trouble
 
 Installation is really simple, just run these commands:
 
@@ -175,7 +176,30 @@ Custom Layouts(Scratchpads) are there in `custom/custom_layouts.py` which by def
 </div>
 
 ## More Customization 🛠️
-TO BE UPDATED
+
+If you have [EasyFeh](https://github.com/ShibamRoy9826/easyfeh) installed then, you can use the color changing script(You need to enable that too during installation...) to automatically change system color scheme! To do that, just modify this in the easyfeh config at `$HOME/.config/easyfeh/config.toml` like this
+
+```
+[palette]
+save_palette = true
+palette_path = "/home/{username}/.config/easyfeh/palette.txt"
+dominant_color_quality = 5
+general_palette_copy = true
+complete_palette_path = "/home/{username}/.config/easyfeh/full_palette.txt"
+autogenerate_palette = true
+```
+and also:
+
+```
+[triggers]
+notify_on_change = false
+command_on_change = true
+notif_message = "Wallpaper Changed!"
+notif_body = "Wallpaper has been set to :f: "
+command = "python ~/scripts/changeColors.py && xdotool key ctrl+super+r"
+```
+Make sure to replace `{username}` with your username.
+If you didn't install the scripts while running the installer, no problem, you can manually download the scripts from [here](https://github.com/ShibamRoy9826/qt_tile/tree/main/.config/scripts) and place them at `~/Scripts` or any other place where you want(But just make sure to use that path in the config mentioned above).
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
@@ -202,13 +226,14 @@ It uses pacman to download most packages, but if the package doesn't exist in th
 
 
 ## Credits 🙏
-The rofi powermenu is a little inspired by [adi1090x-rofi](https://github.com/adi1090x/rofi) Thanks to him for the amazing design ideas!
+
+The rofi powermenu is a little inspired by [adi1090x-rofi](https://github.com/adi1090x/rofi), and the default rofi config too. 
+Thanks to him for the amazing design ideas!
 
 
 ## Contributing 🤝
 
 Everyone is welcome to contribute to the code!
-
 You can also raise an issue, or suggest any features that you think would be great :)
 
 > ✨ Please star this repository if you liked this project 😁

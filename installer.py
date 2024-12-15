@@ -6,14 +6,13 @@ from shutil import rmtree,move,copytree,copy
 username=getlogin()
 
 print("""
-╔═══╗ ╔╗     ╔════╗  ╔╗     
-║╔═╗║╔╝╚╗    ║╔╗╔╗║  ║║     
-║║ ║║╚╗╔╝    ╚╝║║╚╝╔╗║║ ╔══╗
-║║ ║║ ║║       ║║  ╠╣║║ ║╔╗║
-║╚═╝║ ║╚╗     ╔╝╚╗ ║║║╚╗║║═╣
-╚══╗║ ╚═╝     ╚══╝ ╚╝╚═╝╚══╝
-   ╚╝                       
--------------------------------
+ ██████╗ ████████╗  ████████╗██╗██╗     ███████╗
+██╔═══██╗╚══██╔══╝  ╚══██╔══╝██║██║     ██╔════╝
+██║   ██║   ██║        ██║   ██║██║     █████╗  
+██║▄▄ ██║   ██║        ██║   ██║██║     ██╔══╝  
+╚██████╔╝   ██║███████╗██║   ██║███████╗███████╗
+ ╚══▀▀═╝    ╚═╝╚══════╝╚═╝   ╚═╝╚══════╝╚══════╝
+-------------------------------------------------
 
 Installation is is pretty simple, just answer a few questions in yes or no, and that's it! 
 There's almost no bloat in the installer, you can deny to include anything that you don't want!
@@ -77,8 +76,6 @@ def installPackage(pkgName,url=""):
             chdir("..")
         except Exception as e:
             print(f"Error while installing {pkgName} , err:{e}",file=stderr)
-
-
 
 def installPacman(pkgName):
     print("#"*40,end="")
@@ -222,10 +219,31 @@ def preInstall(mainpkgs,depends,mainpkgsAur,dependsAur):
 
 def setupUdev():
     run(["sudo","cp",".config/90-backlight.rules","/etc/udev/rules.d/"])
+    if not path.isfile(path.expanduser("~/.Xauthority")):
+        run(["touch","~/.Xauthority"])
+
+    deviceRules=f"""ACTION=="bind", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 1'"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 0'"
+    """
+    powerRules=f"""# Rule when switching to battery
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 0'"
+# Rule when switching to AC
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 1'"
+    """
+
+    with open(".config/device.rules","w") as f:
+        f.write(deviceRules)
+
+    with open(".config/power.rules","w") as fl:
+        fl.write(powerRules)
+
+    run(["sudo","cp",".config/device.rules","/etc/udev/rules.d/"])
+
+    run(["sudo","cp",".config/power.rules","/etc/udev/rules.d/"])
 
 def postInstall():
     print("*"*40)
-    print("Installation completed!!!! Please reboot to see full effects")
+    print("Installation completed!!!! Please reboot to see full effects, if anything is not working properly, Make sure to raise an issue in the github page, so that my developer can look into it!")
 
 def runInstall(toSetup):
     try:
@@ -403,6 +421,7 @@ if scrot:
     toBeInstalled.append("scrot")
 if gestures:
     toBeInstalledAur.append("libinput-gestures")
+    toBeInstalledAur.append("gestures")
 if gtkTheme:
     toBeInstalledAur.append("colloid-catppuccin-gtk-theme-git")
     toSetup.append("colloid-catppuccin-gtk-theme-git")### TO WORK ON
@@ -429,7 +448,7 @@ print("Oh, and I need to setup some stuff too:")
 for package in moreToSetup:
     print(" - ",package)
 
-confirm=ask("So... Are you alright with installation of all these packages?")
+confirm=ask("So... Are you okay with installation of all these packages?")
 
 ############### Starting/Aborting installation
 if confirm:

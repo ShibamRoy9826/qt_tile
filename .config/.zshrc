@@ -73,6 +73,11 @@ unsetopt BEEP
 alias n="nvim"
 alias ncmpcpp="ncmpcpp -p 6200"
 alias getMusic="python $HOME/scripts/getMusic.py"
+alias i="sudo pacman -S "
+alias iAur="paru -S"
+alias s="pacman -Ss "
+alias sAur="paru -Ss "
+alias up="paru -Syu"
 alias cd="z"
 alias cdd="cd"
 alias rAudio="systemctl --user restart wireplumber pipewire-pulse pipewire"
@@ -80,8 +85,6 @@ alias rInternet="sudo systemctl restart NetworkManager"
 alias ls="eza -a --icons=always"
 alias rel="xrdb merge ~/.Xresources"
 alias noanim="pkill picom"
-
-
 
 # Shell integrations 
 eval "$(fzf --zsh)"
