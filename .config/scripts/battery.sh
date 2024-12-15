@@ -5,9 +5,9 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 # Variables
 BATTERY_LEVEL=$(cat /sys/class/power_supply/BAT0/capacity)
 BATTERY=$(cat /sys/class/power_supply/BAT0/status)
-RINGTONE="$HOME/Music/notificationSound.mp3"
-RINGTONE_CRITICAL="$HOME/Music/notificationCritical.mp3"
-ICON="$HOME/Addons/CustomScripts/Res/battery.svg"
+RINGTONE="$HOME/.local/share/qt_tile/audio/notificationSound.mp3"
+RINGTONE_CRITICAL="$HOME/.local/share/qt_tile/audio/notificationCritical.mp3"
+ICON="$HOME/.local/share/qt_tile/icons/battery.svg"
 
 FULL=/tmp/batteryfull
 LOW=/tmp/batterylow

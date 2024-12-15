@@ -5,11 +5,11 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
 # Variables
 #BATTERY=$(cat /sys/class/power_supply/BAT0/status)
-RINGTONE="$HOME/Music/notificationSound.mp3"
-DISCONNECTED="$HOME/Music/disconnected.mp3"
+RINGTONE="$HOME/.local/share/qt_tile/audio/notificationSound.mp3"
+DISCONNECTED="$HOME/.local/share/qt_tile/audio/disconnected.mp3"
 
-CHARGINGICON="$HOME/Pictures/icons/battery-charging.svg"
-DISCHARGINGICON="$HOME/Pictures/icons/battery-discharging.svg"
+CHARGINGICON="$HOME/.local/share/qt_tile/icons/battery-charging.svg"
+DISCHARGINGICON="$HOME/.local/share/qt_tile/icons/battery-discharging.svg"
 
 # Checking battery status..
 

@@ -291,8 +291,19 @@ def runInstall(toSetup):
     if "dunst" in toSetup:
         confApp("dunst")
         print("Successfully setup dunst!")
+
     if "scripts" in toSetup:
+        run("sed -i 's/shibam/"+username"/g' .config/scripts/*",shell=True)
         copytree(getcwd()+"/.config/scripts",path.expanduser("~/scripts"))
+        try:
+            makedirs(path.expanduser("~/.local/share/qt_tile/audio"))
+            makedirs(path.expanduser("~/.local/share/qt_tile/icons"))
+            copytree(getcwd()+"/.config/assets/audio",path.expanduser("~/.config/assets/audio"))
+            copytree(getcwd()+"/.config/assets/icons",path.expanduser("~/.config/assets/icons"))
+        except:
+            print("Some error occured while placing scripts!")
+
+
     if "colloid-gtk-theme-git":
         takeBackup(path.expanduser("~/.config/gtk-3.0"))
         copytree(getcwd()+"/.config/gtk-3.0",path.expanduser("~/.config/gtk-3.0"))
@@ -360,7 +371,7 @@ gestures=ask("Do you want to auto-setup touchpad gestures? (uses libinput-gestur
 ##$$$$$$ Browser
 browser=ask("Do you want to install a browser?(zen-browser)")
 if browser:
-    browsername="zen-browser"
+    browsername="zen-browser-bin"
 else:
     browsername=input("Okay.. So is there any other browser that you would like to install? (Type exact name please, I will look into AUR):")
 
@@ -382,6 +393,7 @@ if extra_scripts:
     dependenciesAur.append("yt-dlp")
     dependenciesAur.append("python-youtube-search-python")
     dependenciesAur.append("sct")
+    dependenciesAur.append("python-pyautogui")
     dependencies.append("python-httpx")
     dependencies.append("+ Some asset files to be stored at ~/.local/share/qt_tile/")
     toSetup.append("scripts")

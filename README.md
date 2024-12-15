@@ -1,6 +1,7 @@
 ![logo](https://github.com/ShibamRoy9826/qt_tile/blob/main/assets/Qt_Tile_Icon_Light.png?raw=true)
 
-A Simple and easy to setup qtile rice, which comes with an installer for Arch Users:)
+A Simple and easy to setup qtile rice, which comes with an installer for **Arch Users** :)
+
 Its made so that people can configure qtile much more easily and in a more organised manner!
 
 ## Features 😎
@@ -142,6 +143,50 @@ There are some mouse bindings too,
 - You can drag and move windows by holding left click while pressing the Super key
 - You can resize windows by holding and moving right click while pressing the super key
 
+## Shell 📟
+
+If you installed zsh from the installer, its using [zinit](https://github.com/zdharma-continuum/zinit) with [powerlevel10k](https://github.com/romkatv/powerlevel10k) , performance benchmarks are mentioned in their repository. I have commented the lines in `.zshrc` by which you can enable lazy-loading too!
+There are some plugins too, the list includes:
+- zsh-syntax-highlighting
+- zsh-completions
+- zsh-autosuggestions
+- fzf-tab
+There are some keybindings too:
+
+<div align="center">
+
+| Keys | Action |
+| :--- | :--- |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | Move to previous word | 
+| <kbd>Ctrl</kbd> + <kbd>W</kbd> | Move to next word |
+| <kbd>Ctrl</kbd> + <kbd>D</kbd> | Delete previous word |
+| <kbd>Ctrl</kbd> + <kbd>J</kbd> | Move backwords in history |
+| <kbd>Ctrl</kbd> + <kbd>K</kbd> | Move forward in history |
+
+</div>
+
+There are some aliases too, which you can check at `~/.zshrc`
+
+## Gestures
+
+There are many gestures too if you said yes for gestures in the installer. You can configure them yourself by running [gestures](https://gitlab.com/cunidev/gestures) which is a GUI for libinput-gestures, its installed automatically during the installation. The gestures that are included with this rice are:
+
+<div align="center">
+
+| Keys | Action |
+| :--- | :--- |
+|  3 finger swipe up | Opens up thunar | 
+|  3 finger swipe left | Moves to the previous workspace | 
+|  3 finger swipe right | Moves to the next workspace | 
+|  4 finger swipe right | Closes the current application | 
+|  4 finger swipe left | Closes the current application | 
+|  3 finger pinch clockwise | Opens up ncmpcpp(To play some music) | 
+|  3 finger pinch anticlockwise | Opens up ncmpcpp(To play some music) | 
+|  4 finger pinch anticlockwise | Toggles fullscreen | 
+|  4 finger pinch clockwise | Toggles fullscreen | 
+ 
+</div>
+
 ## Customization 🛠️
 
 Along with the configuration there is a separate folder called custom, where you can define your own custom functions, custom layouts and keybindings!
@@ -175,9 +220,9 @@ Custom Layouts(Scratchpads) are there in `custom/custom_layouts.py` which by def
 
 </div>
 
-## More Customization 🛠️
+## More Customization (Tips) 🛠️
 
-If you have [EasyFeh](https://github.com/ShibamRoy9826/easyfeh) installed then, you can use the color changing script(You need to enable that too during installation...) to automatically change system color scheme! To do that, just modify this in the easyfeh config at `$HOME/.config/easyfeh/config.toml` like this
+1) If you have [EasyFeh](https://github.com/ShibamRoy9826/easyfeh) installed then, you can use the color changing script(You need to enable that too during installation...) to automatically change system color scheme! To do that, just modify this in the easyfeh config at `$HOME/.config/easyfeh/config.toml` like this
 
 ```
 [palette]
@@ -199,7 +244,37 @@ notif_body = "Wallpaper has been set to :f: "
 command = "python ~/scripts/changeColors.py && xdotool key ctrl+super+r"
 ```
 Make sure to replace `{username}` with your username.
-If you didn't install the scripts while running the installer, no problem, you can manually download the scripts from [here](https://github.com/ShibamRoy9826/qt_tile/tree/main/.config/scripts) and place them at `~/Scripts` or any other place where you want(But just make sure to use that path in the config mentioned above).
+If you didn't install the scripts while running the installer, no problem, you can manually download the scripts from [here](https://github.com/ShibamRoy9826/qt_tile/tree/main/.config/scripts) and place them at `~/scripts` or any other place where you want(But just make sure to use that path in the config mentioned above).
+
+2) If you're using zen-browser-bin, you can use zen-browser-avx2-bin instead if your CPU supports AVX2, you can check if your CPU supports that by running this:
+```bash
+grep -q -i avx2 /proc/cpuinfo && echo true
+```
+You can read more at [zen documentation](https://docs.zen-browser.app/guides/generic-optimized)
+
+3) You can setup cronjobs for the water reminder, and eye blink reminder to work, the scripts are included at [here](https://github.com/ShibamRoy9826/qt_tile/tree/main/.config/scripts) incase you didn't download them while running the installer(Put them at `~/Scripts` if yyou want to use this tip). 
+First of all you may want to install cronie
+
+```bash
+sudo pacman -S cronie
+```
+
+Once you're done with the installation, you need to enable it  and start it
+
+```bash
+sudo systemctl enable cronie
+sudo systemctl start cronie
+```
+
+Now, you can setup the tasks now, by running `crontab -e`, justwrite these as your editor opens up:
+```bash
+*/30 * * * * /home/{username}/scripts/WaterReminder.sh
+*/20 * * * * /home/{username}/scripts/LessEyeStrain.sh
+0 * * * * /home/{username}/scripts/nightLight.sh
+```
+That's it! now you should receive notifications for water reminder, for blinking your eyes, and even the automatic nightlight(requires sct to be installed)
+
+4) The scripts are pretty much simple, you can customize them yourself to have some fun! they are stored at `~/scripts` if you installed them while running the installer
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
@@ -219,10 +294,40 @@ It mostly installs just what you want it to install(It asks for many things). Of
 - unzip
 - python-psutil
 - python-mpd2
+- qtile-extras-git
+- python-pulsectl-asyncio
 
-### 2) How does it download the packages?
+### 2) What things does it install altogether if I say yes to everything?
+
+It includes the packages mentioned above, along with these packages:
+- kitty
+- zsh + powerlevel10k + zinit + eza + fzf
+- easyfeh
+- rofi
+- xclip
+- dunst
+- scrot
+- mpd + mpc
+- ncmpcpp
+- zen-browser-bin
+- thunar
+- colloid-gtk-theme-git
+- picom-pijulius + meson + ninja + uthash
+- libinput-gestures
+- yt-dlp + python-youtube-search-python + sct
+- python-httpx
+- simplescreenrecorder
+- Some extra scripts
+- some asset files stored at `~/.local/share/qt_tile/`
+
+
+### 3) How does it download the packages?
 
 It uses pacman to download most packages, but if the package doesn't exist in the extra repository, it's downloaded from the AUR
+
+### 4) Why are you using powerlevel10k its not maintained anymore!
+
+I know powerlevel10k isn't maintained anymore, but that shouldn't be a problem, its just a zsh theme and already quite feature rich, besides it's very easy to customize and looks pretty good. You can definitely provide suggestions via raising an issue.
 
 
 ## Credits 🙏
@@ -230,6 +335,7 @@ It uses pacman to download most packages, but if the package doesn't exist in th
 The rofi powermenu is a little inspired by [adi1090x-rofi](https://github.com/adi1090x/rofi), and the default rofi config too. 
 Thanks to him for the amazing design ideas!
 
+Thanks to the developers of all the other packages too that this rice uses, without them this rice would never have been complete.
 
 ## Contributing 🤝
 
