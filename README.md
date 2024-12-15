@@ -329,6 +329,10 @@ It uses pacman to download most packages, but if the package doesn't exist in th
 
 I know powerlevel10k isn't maintained anymore, but that shouldn't be a problem, its just a zsh theme and already quite feature rich, besides it's very easy to customize and looks pretty good. You can definitely provide suggestions via raising an issue.
 
+### 5) Why is mpd not working? I am trying to run it...!
+
+Mpd is configured a little different, its running at port 6200, I don't know but I was facing some issues with the default, so i changed the port and its working, didn't bother to change it... However, I would definitely change it if creates any problems in the future.
+
 
 ## Credits 🙏
 

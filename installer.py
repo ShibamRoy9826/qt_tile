@@ -395,6 +395,8 @@ if extra_scripts:
     dependenciesAur.append("sct")
     dependenciesAur.append("python-pyautogui")
     dependencies.append("python-httpx")
+    dependencies.append("python-toml")
+    dependencies.append("python-configparser")
     dependencies.append("+ Some asset files to be stored at ~/.local/share/qt_tile/")
     toSetup.append("scripts")
 

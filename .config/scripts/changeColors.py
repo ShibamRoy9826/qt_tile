@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-
 from os import getlogin
+from toml import load,dump
 
 username=getlogin()
 fl_path=f"/home/{username}/.config/easyfeh/full_palette.txt"
@@ -26,6 +26,8 @@ with open(fl_path,"r") as f:
         elif i.startswith("fg"):
             fg=i.replace("fg:","").replace(";\n","")
 
+
+### Content for rofi colors
 content=f"""
 * {{
     bg: {bg}99;
@@ -39,13 +41,16 @@ content=f"""
     urgent: {urgent};
 }}
 """
-rofi_colors="/home/shibam/.config/rofi/colors.rasi"
-qtile_conf="/home/shibam/.config/qtile/config.toml"
 
-with open(rofi_colors,"w") as fl:
-    fl.write(content)
+rofi_colors="/home/{username}/.config/rofi/colors.rasi"
+qtile_conf="/home/{username}/.config/qtile/config.toml"
 
-from toml import load,dump
+try:
+    with open(rofi_colors,"w") as fl:
+        fl.write(content)
+except:
+    print("Warning: Rofi is probably not installed, maybe you can try installing that, or remove these lines from the script code")
+
 with open(qtile_conf,"r") as f:
     c=load(f)
 
@@ -65,7 +70,7 @@ with open(qtile_conf,"w") as fl:
 
 try:
     import configparser
-    p="/home/shibam/.config/cava/config"
+    p="/home/{username}/.config/cava/config"
     config = configparser.ConfigParser()
     config.read(p)
     config.set('color','foreground',f"'{fg}'".replace(" ",""))
@@ -75,8 +80,7 @@ try:
     config.set("color","gradient_color_3",f"'{fg}'".replace(" ",""))
     config.set("color","gradient_color_4",f"'{fg2}'".replace(" ",""))
 
-
     with open(p,"w") as f:
         config.write(f)
 except:
-    pass
+    print("Warning: cava is probably not installed, maybe you can try installing that, or remove these lines from the script code")
