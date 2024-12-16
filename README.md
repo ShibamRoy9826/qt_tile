@@ -4,6 +4,9 @@ A Simple and easy to setup qtile rice, which comes with an installer for **Arch 
 
 Its made so that people can configure qtile much more easily and in a more organised manner!
 
+> [!NOTE]
+> This installer expects a base arch installation at the very least(It will work even if you have multiple things installed), which includes packages such as base-devel, and python, and is supposed to be run without root privillages. Also, It doesn't include the display manager, you need to install that yourself.
+
 ## Features 😎
 
 - Comes with a super simple installer(For Arch Users Only)
@@ -13,8 +16,11 @@ Its made so that people can configure qtile much more easily and in a more organ
 - Beautiful animations made with [pijulius-picom](https://github.com/pijulius/picom)
 - Fully customized app launcher and powermenu (A Small section of the powermenu was taken from [adi1090x-rofi](https://github.com/adi1090x/rofi))
 - Some Scripts to perform extra tasks too(Optional, you can tell the installer not to install it)
+
 ## Demo
+
 ### Video
+
 [<img src="https://cloud-oga03k4l6-hack-club-bot.vercel.app/0fancy2.png" width="60%">](https://cloud-7t3z6wj50-hack-club-bot.vercel.app/0inshot_20241216_102136759.mp4)
 
 The video lags a little, but there's no lag in the actual animations! My processor is just a bit old to handle everything perfectly while recording the screen
@@ -45,8 +51,11 @@ python installer.py
 Next, make your choices as the installer asks you questions, most of the questions are just in the format of yes or no.
 Once you're done, it will ask for a confirmation and automatically start the installation!
 
+The installation took around an hour on my laptop, with 2 threads of my intel i5 6th gen processor, with 4GB RAM, and an SSD(These are the specs of the VM in which i tested. I was running many other things in the host operating system during the time), it can be faster depending on your internet speed and hardware.
+
 > [!NOTE]
 > If picom causes lag in your system, or behaves in a weird way, make sure to change your backend to "xrender", to do that, edit `$HOME/.config/picom.conf` and replace `backend='glx'` with `backend='xrender'`
+> Also, if you said yes to colloid-gtk-theme-git installation, be patient, as it can take some time to install.
 
 <h2>
     Usage <img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/7b282ec6-fcc3-4600-90a7-2c3140549f58" width="30">

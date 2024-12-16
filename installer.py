@@ -222,13 +222,13 @@ def setupUdev():
     if not path.isfile(path.expanduser("~/.Xauthority")):
         run(["touch","~/.Xauthority"])
 
-    deviceRules=f"""ACTION=="bind", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 1'"
-ACTION=="remove", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 0'"
+    deviceRules=f"""ACTION=="bind", SUBSYSTEM=="usb", ENV{{DEVTYPE}}=="usb_device", ENV{{DISPLAY}}=":0", ENV{{XAUTHORITY}}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 1'"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{{DEVTYPE}}=="usb_device", ENV{{DISPLAY}}=":0", ENV{{XAUTHORITY}}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/deviceStatus.sh 0'"
     """
     powerRules=f"""# Rule when switching to battery
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 0'"
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{{type}}=="Mains", ATTR{{online}}=="0", ENV{{DISPLAY}}=":0", ENV{{XAUTHORITY}}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 0'"
 # Rule when switching to AC
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 1'"
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{{type}}=="Mains", ATTR{{online}}=="1", ENV{{DISPLAY}}=":0", ENV{{XAUTHORITY}}="/home/{username}/.Xauthority" RUN+="/usr/bin/su {username} -c '/home/{username}/scripts/chargingStatus.sh 1'"
     """
 
     with open(".config/device.rules","w") as f:
@@ -247,6 +247,7 @@ def postInstall():
 
 def runInstall(toSetup):
     try:
+        chdir("..")
         rmtree("temp")
     except:
         pass
@@ -293,9 +294,9 @@ def runInstall(toSetup):
         print("Successfully setup dunst!")
 
     if "scripts" in toSetup:
-        run("sed -i 's/shibam/"+username"/g' .config/scripts/*",shell=True)
-        copytree(getcwd()+"/.config/scripts",path.expanduser("~/scripts"))
+        run("sed -i 's/shibam/"+username+"/g' .config/scripts/*",shell=True)
         try:
+            copytree(getcwd()+"/.config/scripts",path.expanduser("~/scripts"))
             makedirs(path.expanduser("~/.local/share/qt_tile/audio"))
             makedirs(path.expanduser("~/.local/share/qt_tile/icons"))
             copytree(getcwd()+"/.config/assets/audio",path.expanduser("~/.config/assets/audio"))
@@ -306,12 +307,15 @@ def runInstall(toSetup):
 
     if "colloid-gtk-theme-git":
         takeBackup(path.expanduser("~/.config/gtk-3.0"))
-        copytree(getcwd()+"/.config/gtk-3.0",path.expanduser("~/.config/gtk-3.0"))
+        try:
+            copytree(getcwd()+"/.config/gtk-3.0",path.expanduser("~/.config/gtk-3.0"))
+        except:
+            print("Some error occured while installing theme!")
 
     setupUdev()
 
 
-dependencies=["qtile","wget","git","brightnessctl","Iosevka Nerd Fonts","papirus-icon-theme","zoxide","xdotool","unzip","python-psutil","python-mpd2"]
+dependencies=["sudo","qtile","unzip","wget","git","brightnessctl","Iosevka Nerd Fonts","papirus-icon-theme","zoxide","xdotool","python-psutil","python-mpd2"]
 dependenciesAur=["qtile-extras-git","python-pulsectl","python-pulsectl-asyncio"]
 toBeInstalled=[]
 toBeInstalledAur=[]
@@ -396,7 +400,7 @@ if extra_scripts:
     dependenciesAur.append("python-pyautogui")
     dependencies.append("python-httpx")
     dependencies.append("python-toml")
-    dependencies.append("python-configparser")
+    dependenciesAur.append("python-configparser")
     dependencies.append("+ Some asset files to be stored at ~/.local/share/qt_tile/")
     toSetup.append("scripts")
 
