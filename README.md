@@ -13,6 +13,20 @@ Its made so that people can configure qtile much more easily and in a more organ
 - Beautiful animations made with [pijulius-picom](https://github.com/pijulius/picom)
 - Fully customized app launcher and powermenu (A Small section of the powermenu was taken from [adi1090x-rofi](https://github.com/adi1090x/rofi))
 - Some Scripts to perform extra tasks too(Optional, you can tell the installer not to install it)
+## Demo
+### Video
+[<img src="https://cloud-oga03k4l6-hack-club-bot.vercel.app/0fancy2.png" width="60%">](https://cloud-7t3z6wj50-hack-club-bot.vercel.app/0inshot_20241216_102136759.mp4)
+
+The video lags a little, but there's no lag in the actual animations! My processor is just a bit old to handle everything perfectly while recording the screen
+
+### Normal Mode
+<img src="https://cloud-dfjngap5a-hack-club-bot.vercel.app/0fancy1.png" width="50%">
+<img src="https://cloud-dfjngap5a-hack-club-bot.vercel.app/1screenshot-15-dec-24__22-59-21.png" width="50%">
+
+### Focus Mode
+
+<img src="https://cloud-hznna5i6g-hack-club-bot.vercel.app/0powermenu.png" width="50%">
+<img src="https://cloud-hznna5i6g-hack-club-bot.vercel.app/1screenshot-15-dec-24__22-23-00.png" width="50%">
 
 ## Installation 🛠️
 
@@ -336,7 +350,7 @@ Mpd is configured a little different, its running at port 6200, I don't know but
 
 ## Credits 🙏
 
-The rofi powermenu is a little inspired by [adi1090x-rofi](https://github.com/adi1090x/rofi), and the default rofi config too. 
+The rofi powermenu is a little inspired by [adi1090x-rofi](https://github.com/adi1090x/rofi), and the default rofi config too.
 Thanks to him for the amazing design ideas!
 
 Thanks to the developers of all the other packages too that this rice uses, without them this rice would never have been complete.
