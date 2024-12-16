@@ -169,7 +169,7 @@ def setupFont():
     chdir("Iosevka")
     run(['wget','https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Iosevka.zip'])
     run(["unzip","Iosevka.zip"])
-    chdir("..")
+    # chdir("..")
     run(["sudo","mv",getcwd()+"/Iosevka/","/usr/share/fonts/"],check=True)
     run(["fc-cache","-v"])
     print("-"*40,end="")
@@ -269,9 +269,9 @@ def runInstall(toSetup):
         copy(getcwd()+"/.config/libinput-gestures.conf",path.expanduser("~/.config/libinput-gestures.conf"))
         print("Successfully setup gestures!")
     if "zsh" in toSetup:
-        run("chsh $(which zsh)",shell=True)
         takeBackup("~/.zshrc")
         copy(getcwd()+"/.config/.zshrc",path.expanduser("~/.zshrc"))
+        run(f"chsh -s $(which zsh) {username}",shell=True)
         print("Successfully setup zsh and zinit!")
     if "easyfeh" in toSetup:
         print("Successfully setup easyfeh!")
@@ -284,11 +284,13 @@ def runInstall(toSetup):
 
     if "mpd" in toSetup:
         confApp("mpd")
-        print("Successfully setup mpd!")
         try:
             makedirs("/home/{username}/Music/MySongs")
+            makedirs("/home/{username}/Music/MySongs/Playlists")
         except:
             pass
+        print("Successfully setup mpd!")
+
     if "dunst" in toSetup:
         confApp("dunst")
         print("Successfully setup dunst!")
@@ -301,9 +303,9 @@ def runInstall(toSetup):
             makedirs(path.expanduser("~/.local/share/qt_tile/icons"))
             copytree(getcwd()+"/.config/assets/audio",path.expanduser("~/.config/assets/audio"))
             copytree(getcwd()+"/.config/assets/icons",path.expanduser("~/.config/assets/icons"))
+            setupUdev()
         except:
             print("Some error occured while placing scripts!")
-
 
     if "colloid-gtk-theme-git":
         takeBackup(path.expanduser("~/.config/gtk-3.0"))
@@ -311,8 +313,6 @@ def runInstall(toSetup):
             copytree(getcwd()+"/.config/gtk-3.0",path.expanduser("~/.config/gtk-3.0"))
         except:
             print("Some error occured while installing theme!")
-
-    setupUdev()
 
 
 dependencies=["sudo","qtile","unzip","wget","git","brightnessctl","Iosevka Nerd Fonts","papirus-icon-theme","zoxide","xdotool","python-psutil","python-mpd2"]
@@ -389,7 +389,7 @@ else:
     filemanager=input("Okay.. So is there any other file manager that you would like to install? (Type exact name please, I will look into the AUR):")
 
 
-gtkTheme=ask("Do you want to install a GTK theme? (colloid-catppuccin-gtk-theme-git)")
+gtkTheme=ask("Do you want to install a GTK theme? (colloid-catppuccin-gtk-theme-git)(Takes some time to install)")
 
 ##################################################################################################################
 #### Adding all dependencies
