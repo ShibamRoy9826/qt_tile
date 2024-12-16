@@ -169,7 +169,7 @@ def setupFont():
     chdir("Iosevka")
     run(['wget','https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Iosevka.zip'])
     run(["unzip","Iosevka.zip"])
-    # chdir("..")
+    chdir("..")
     run(["sudo","mv",getcwd()+"/Iosevka/","/usr/share/fonts/"],check=True)
     run(["fc-cache","-v"])
     print("-"*40,end="")
